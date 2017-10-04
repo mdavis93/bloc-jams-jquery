@@ -12,6 +12,7 @@ $(document).ready( function() {
 
     if (nextSongIndex >= album.songs.length) { return; }
 
+    $('#time-control .total-time').text(player.prettyTime(nextSong.duration));
     player.playPause(nextSong);
   });
 
@@ -24,6 +25,7 @@ $(document).ready( function() {
 
     if (prevSongIndex < 0) { return; }
 
+    $('#time-control .total-time').text(player.prettyTime(prevSong.duration));
     player.playPause(prevSong);
   });
 
@@ -31,12 +33,16 @@ $(document).ready( function() {
     player.skipTo(event.target.value);
   });
 
+  $('#volume-control input').on('input', function( event ) {
+    player.setVolume(event.target.value);
+  });
+
   setInterval( () => {
     const currentTime = player.getTime();
     const duration = player.getDuration();
     const percent = (currentTime/duration) * 100;
 
-    $('#time-control .current-time').text(currentTime);
+    $('#time-control .current-time').text(player.prettyTime(currentTime));
     $('#time-control input').val(percent);
   }, 1000);
 });

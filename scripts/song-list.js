@@ -15,6 +15,7 @@ $(document).ready( function() {
     `);
 
     song.element.click( (event) => {
+      $('#time-control .total-time').text(player.prettyTime(song.duration));
       player.playPause(song);
       $('button#play-pause').attr('playState', player.playState);
     });
